@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:22:06 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/07/30 11:45:23 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:12:30 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <unistd.h>
 
 # define EMUTEX "An error occurred when init mutex"
-# define EAT "has taken a fork"
-# define TFORK "is eating"
+# define TFORK "has taken a fork"
+# define EAT "is eating"
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
 # define DIE "died"
