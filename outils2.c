@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   outils2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/30 10:17:44 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/07/30 15:28:30 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/07/30 13:54:38 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/07/30 14:36:35 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pthread.h>
 #include "philo.h"
 
-long	get_time_ms(void)
+long eat_time(t_philo *philo, enum e_flag opt)
 {
-	struct timeval	tp;
+	long time;
 
-	gettimeofday(&tp, NULL);
-	return ((tp.tv_sec * 1000L) + (tp.tv_usec / 1000));
-}
-
-/*
- * tts : time to sleep
- */
-void	custom_sleep(t_philo *philo, long tts)
-{
-	long	start;
-
-	start = get_time_ms();
-	while (get_time_ms() - start < tts)
-	{
-		if (!table_status(philo, GET))
-			return ;
-		usleep(100);
-	}
-}
-
-
-long time_now(t_philo *philo)
-{
-	return (get_time_ms() - philo->data->start);
+	pthread_mutex_lock(&philo->time_mutex);
+	if (opt == SET)
+		philo->last_meal_time = get_time_ms();
+	time = philo->last_meal_time;
+	pthread_mutex_unlock(&philo->time_mutex);
+	return (time);
 }

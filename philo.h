@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:22:06 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/07/30 13:12:30 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:19:10 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ enum				e_flag
 	STOP = 0b10,
 	TIME = 0b100,
 	STATE = 0b1000,
+	GET,
+	SET
 };
 
 enum				e_state
@@ -45,12 +47,11 @@ typedef struct s_data
 {
 	int				running;
 	int				count;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			time_to_die;
 	int				eat_count;
-	time_t			time_to_eat;
-	time_t			time_to_sleep;
-	time_t			time_to_die;
-	time_t			philo_start;
-	time_t			start;
+	long			start;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_mutex;
 	pthread_mutex_t	stop_mutex;
@@ -62,11 +63,11 @@ typedef struct s_philo
 	int				id;
 	int				l_fork;
 	int				r_fork;
-	int				nb_time_eat;
+	int				eat_count;
 	t_data			*data;
 	enum e_state	state;
 	pthread_t		thread;
-	time_t			last_meal_time;
+	long			last_meal_time;
 	pthread_mutex_t	state_mutex;
 	pthread_mutex_t	time_mutex;
 }					t_philo;
@@ -81,8 +82,11 @@ int					started_philosophy(t_philo *philo);
 void				*routine(void *prama);
 long				get_time_ms(void);
 void				print_state(t_philo *philo, const char *state);
-void				custom_sleep(long tts);
+void				custom_sleep(t_philo *philo, long tts);
 void				put_forks(t_philo *philo);
 void				take_forks(t_philo *philo);
+long				time_now(t_philo *philo);
+int					table_status(t_philo *philo, enum e_flag opt);
+long				eat_time(t_philo *philo, enum e_flag opt);
 
 #endif // !PHILO_H
