@@ -6,10 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:34:08 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/07/25 15:21:19 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:16:19 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "philo.h"
 
 static int	init_fork(t_data *data)
@@ -33,6 +34,15 @@ static int	init_fork(t_data *data)
 	return (0);
 }
 
+static void	ft_swap(int *a, int *b)
+{
+	int	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
 static t_philo	*init_thread(t_data *data)
 {
 	t_philo	*philo;
@@ -44,11 +54,16 @@ static t_philo	*init_thread(t_data *data)
 	idx = 0;
 	while (idx < data->count)
 	{
-		if (pthread_mutex_init(&(philo + idx)->time_mutex, NULL) != 0)
+		philo[idx].id = (idx + 1);
+		philo[idx].l_fork = (idx);
+		philo[idx].r_fork = (idx + 1) % data->count;
+		if (idx & 1)
+			ft_swap(&philo[idx].l_fork, &philo[idx].r_fork);
+		if (pthread_mutex_init(&philo[idx].time_mutex, NULL) != 0)
 			return (free_thread_mutex(philo + idx, idx, NONE), NULL);
-		if (pthread_mutex_init(&(philo + idx)->state_mutex, NULL) != 0)
+		if (pthread_mutex_init(&philo[idx].state_mutex, NULL) != 0)
 			return (free_thread_mutex(philo + idx, idx, TIME), NULL);
-		philo->data = data;
+		philo[idx].data = data;
 		idx++;
 	}
 	return (philo);

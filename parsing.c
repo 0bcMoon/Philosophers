@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:06:07 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/07/25 15:22:42 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:04:44 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ t_data	*parsing(char **argv)
 		|| data->time_to_eat <= 0 || data->time_to_sleep <= 0
 		|| data->count <= 0)
 		return (printf("Error : invalid data\n"), free_data(data, 0));
+	data->running = 1;
 	return (data);
 }
