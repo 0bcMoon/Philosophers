@@ -6,23 +6,20 @@
 #    By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 09:27:48 by hibenouk          #+#    #+#              #
-#    Updated: 2024/08/03 11:27:13 by hibenouk         ###   ########.fr        #
+#    Updated: 2024/08/03 15:16:47 by hibenouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 SRC =  main.c init.c  parsing.c  routine.c thread.c time.c clean.c outils.c outils2.c
 
-
 OBJ_DIR = ./obj/
-SRC_DIR = .
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 CC = cc
 
-
-CFLAGS = -Ofast -O3 -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -O3 -Ofast -Wall -Wextra -Werror
 
 
 NAME = philo

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:06:07 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/08/03 11:48:57 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:32:51 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_data	*parsing(char **argv)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (printf("Error : could not alloc\n"), NULL);
+		return (printf("Error : could not alloc: out of memory\n"), NULL);
 	data->count = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
@@ -58,7 +58,7 @@ t_data	*parsing(char **argv)
 	else
 		data->eat_count = LONG_MAX;
 	if (data->eat_count < 0 || data->time_to_die <= 0 || data->time_to_eat <= 0
-		|| data->time_to_sleep <= 0 || data->count <= 0)
+		|| data->time_to_sleep <= 0 || data->count <= 0 || data->count > 400)
 		return (printf("Error : invalid data\n"), free(data), NULL);
 	data->running = 1;
 	return (data);

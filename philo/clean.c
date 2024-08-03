@@ -6,11 +6,10 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:03:33 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/08/03 12:16:49 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:31:45 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "philo.h"
 
 void	free_mutex(t_data *data, int count, enum e_flag flag)

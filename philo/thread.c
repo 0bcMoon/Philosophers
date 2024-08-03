@@ -6,11 +6,10 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:31 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/08/03 12:21:34 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:31:37 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "philo.h"
 
 static int	announce_death(t_philo *philo)
@@ -43,6 +42,13 @@ static int	manger(t_philo *philo)
 		if (meal_count == philo->data->count)
 			return (table_status(philo, STOP));
 	}
+}
+
+static void	wait_thread(t_philo *philo)
+{
+	int	idx;
+
+	manger(philo);
 	idx = 0;
 	while (idx < philo->data->count)
 		pthread_join(philo[idx++].thread, NULL);
@@ -54,9 +60,9 @@ int	started_philosophy(t_philo *philo)
 	int		idx;
 	long	start;
 
-	idx = 0;
 	start = get_time_ms();
 	philo->data->start = start;
+	idx = 0;
 	while (idx < philo->data->count)
 	{
 		philo[idx].last_meal_time = start;
@@ -72,6 +78,6 @@ int	started_philosophy(t_philo *philo)
 			return (clean_thread(philo), 1);
 		idx += 2;
 	}
-	manger(philo);
+	wait_thread(philo);
 	return (0);
 }
