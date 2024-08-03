@@ -36,8 +36,7 @@ void	custom_sleep(t_philo *philo, long tts)
 	}
 }
 
-
-long time_now(t_philo *philo)
+long	time_now(t_philo *philo)
 {
 	return (get_time_ms() - philo->data->start);
 }

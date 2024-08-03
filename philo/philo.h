@@ -6,19 +6,19 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:22:06 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/08/03 10:34:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:25:34 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
 # include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
-
 # define EMUTEX "An error occurred when create mutex"
 # define ETHREAD "An error occurred when create  thread"
 # define TFORK "has taken a fork"
@@ -26,6 +26,7 @@
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
 # define DIE "died"
+
 enum				e_flag
 {
 	NONE = 0b0,

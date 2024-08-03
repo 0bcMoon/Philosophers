@@ -6,11 +6,10 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:34:08 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/07/31 11:33:56 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:21:22 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "philo.h"
 
 static int	init_fork(t_data *data)

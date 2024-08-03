@@ -6,29 +6,25 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:31 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/08/03 10:32:44 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:21:34 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
 #include <stdio.h>
-#include <unistd.h>
 #include "philo.h"
 
-static int announce_death(t_philo *philo)
+static int	announce_death(t_philo *philo)
 {
 	table_status(philo, STOP);
-	printf("%ld %d %s\n", time_now(philo) , philo->id, DIE);
+	printf("%ld %d %s\n", time_now(philo), philo->id, DIE);
 	return (0);
 }
 
-
-
-static int manger(t_philo *philo)
+static int	manger(t_philo *philo)
 {
-	int idx;
-	long curr_time;
-	int meal_count;
+	int		idx;
+	long	curr_time;
+	int		meal_count;
 
 	while (1)
 	{
@@ -37,22 +33,26 @@ static int manger(t_philo *philo)
 		meal_count = 0;
 		while (idx < philo->data->count)
 		{
-			if (curr_time - eat_time(philo + idx, GET) >= philo->data->time_to_die)
+			if (curr_time - eat_time(philo + idx,
+					GET) >= philo->data->time_to_die)
 				return (announce_death(philo + idx));
-			else if (eat_count(philo + idx, GET) >=  philo->data->eat_count)
+			else if (eat_count(philo + idx, GET) >= philo->data->eat_count)
 				meal_count++;
 			idx++;
 		}
 		if (meal_count == philo->data->count)
 			return (table_status(philo, STOP));
 	}
-
+	idx = 0;
+	while (idx < philo->data->count)
+		pthread_join(philo[idx++].thread, NULL);
+	clean_thread(philo);
 }
 
-int started_philosophy(t_philo *philo)
+int	started_philosophy(t_philo *philo)
 {
-	int idx;
-	long start;
+	int		idx;
+	long	start;
 
 	idx = 0;
 	start = get_time_ms();
@@ -73,9 +73,5 @@ int started_philosophy(t_philo *philo)
 		idx += 2;
 	}
 	manger(philo);
-	idx = 0;
-	while (idx < philo->data->count)
-		pthread_join(philo[idx++].thread, NULL);
-	clean_thread(philo);
-	return (0);;
+	return (0);
 }
