@@ -6,7 +6,7 @@
 #    By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 09:27:48 by hibenouk          #+#    #+#              #
-#    Updated: 2024/08/03 15:16:47 by hibenouk         ###   ########.fr        #
+#    Updated: 2024/08/03 17:04:17 by hibenouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ NAME = philo
 all : $(NAME)
 
 $(NAME) :$(OBJ_DIR) $(OBJ)
-	$(CC)  $(CFLAGS)  $(OBJ) -o $(NAME)
+	$(CC)  $(CFLAGS)  $(OBJ) -lpthread -o $(NAME)
 
 
 $(OBJ_DIR)%.o: %.c philo.h

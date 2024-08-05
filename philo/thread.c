@@ -6,11 +6,12 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:31 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/08/03 15:31:37 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/08/05 08:59:41 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdio.h>
 
 static int	announce_death(t_philo *philo)
 {
@@ -55,6 +56,22 @@ static void	wait_thread(t_philo *philo)
 	clean_thread(philo);
 }
 
+static void	thread_faild(t_philo *philo, int idx)
+{
+	int	i;
+	int	inc;
+
+	inc = 2 * (idx % 2 == 0) + (idx % 2 == 1);
+	i = 0;
+	table_status(philo, STOP);
+	while (i < idx)
+	{
+		pthread_join(philo[i].thread, NULL);
+		i += inc;
+	}
+	clean_thread(philo);
+}
+
 int	started_philosophy(t_philo *philo)
 {
 	int		idx;
@@ -67,7 +84,7 @@ int	started_philosophy(t_philo *philo)
 	{
 		philo[idx].last_meal_time = start;
 		if (pthread_create(&philo[idx].thread, NULL, routine, &philo[idx]) != 0)
-			return (clean_thread(philo), 1);
+			return (thread_faild(philo, idx), 1);
 		idx += 2;
 	}
 	idx = 1;
@@ -75,7 +92,7 @@ int	started_philosophy(t_philo *philo)
 	{
 		philo[idx].last_meal_time = start;
 		if (pthread_create(&philo[idx].thread, NULL, routine, &philo[idx]) != 0)
-			return (clean_thread(philo), 1);
+			return (thread_faild(philo, idx), 1);
 		idx += 2;
 	}
 	wait_thread(philo);
