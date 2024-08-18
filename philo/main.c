@@ -16,9 +16,8 @@ int	main(int ac, char **argv)
 {
 	t_data	*data;
 	t_philo	*philo;
-
 	if (ac < 5 || ac > 6)
-		return (printf("Error: invalid number of argument\n"), 1);
+		return (printf("Error: invalid number of argument  \n"), 1);
 	data = parsing(argv);
 	if (!data)
 		return (1);
@@ -29,4 +28,5 @@ int	main(int ac, char **argv)
 		return (printf("%s", EMUTEX), free(data), 1);
 	if (started_philosophy(philo))
 		return (printf("%s", ETHREAD), 1);
+	printf("koualil don't steal\n");
 }
